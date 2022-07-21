@@ -13,6 +13,7 @@ A simple utility Bash script to backup [Ghost](https://github.com/TryGhost/Ghost
 
 - [Wraith](#wraith)
   - [Table of Contents](#table-of-contents)
+  - [Flowchart](#flowchart)
   - [Requirements](#requirements)
   - [Set up Rclone](#set-up-rclone)
   - [How to use](#how-to-use)
@@ -20,6 +21,13 @@ A simple utility Bash script to backup [Ghost](https://github.com/TryGhost/Ghost
   - [FAQ](#faq)
     - [What to backup](#what-to-backup)
   - [Contributing](#contributing)
+
+## Flowchart
+
+```mermaid
+graph LR
+  1(["start"]) --> 2["compress content/"] --> 3["run mysqldump"] --> 4["rclone zip files to cloud storage"] --> 5["clean up"] --> 6(["end"])
+```
 
 ## Requirements
 
