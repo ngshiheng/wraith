@@ -41,7 +41,7 @@ A list of CLI needed to be installed:
 
 ## Set up Rclone
 
-> Reference: https://rclone.org/
+> Reference: [rclone.org](https://rclone.org/)
 
 Install `rclone` using `curl -s https://rclone.org/install.sh | bash`
 
@@ -59,7 +59,7 @@ An example to configure Rclone with Google Drive:
 
 ## Set up a Cron job
 
-> Reference: https://crontab.guru/every-week
+> Reference: [crontab.guru](https://crontab.guru/every-week)
 
 1. Add a `crontab -e` item
 2. For this example, we will back up the data every week: `0 0 * * 0 cd /$HOME/wraith/ && ./backup.sh`
@@ -68,7 +68,7 @@ An example to configure Rclone with Google Drive:
 
 ### What to backup
 
-> Reference: https://ghost.org/docs/ghost-cli/#ghost-backup
+> Reference: [ghost.org/docs/ghost-cli/#ghost-backup](https://ghost.org/docs/ghost-cli/#ghost-backup)
 
 1. Your content in JSON format
 2. A full member CSV export
@@ -79,6 +79,8 @@ An example to configure Rclone with Google Drive:
 And your MySQL database.
 
 ## Contributing
+
+Please following the [Bash Coding Style repository](https://github.com/icy/bash-coding-style) for Bash coding conventions and good practices.
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
