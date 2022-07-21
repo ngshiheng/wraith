@@ -48,8 +48,10 @@ rclone_to_cloud_storage() {
 # clean up old backups
 clean_up() {
     log "Cleaning up old backups..."
-    rm -r "$GHOST_DIR/$GHOST_CONTENT_BACKUP_FILENAME"
-    rm -r "$GHOST_DIR/$GHOST_MYSQL_BACKUP_FILENAME"
+    cd $GHOST_DIR
+
+    rm -r "$GHOST_CONTENT_BACKUP_FILENAME"
+    rm -r "$GHOST_MYSQL_BACKUP_FILENAME"
 }
 
 log "Welcome to Wraith"
