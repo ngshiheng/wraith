@@ -1,11 +1,18 @@
 # Wraith
 
-A simple Bash script to backup [Ghost](https://github.com/TryGhost/Ghost).
+<p align="center">
+  <img src="assets/wraith.svg">
+</p>
+
+A simple utility Bash script to backup [Ghost](https://github.com/TryGhost/Ghost).
 
 > **Warning**
 > This software comes with no warranties of any kind whatsoever, and may not be useful for anything. Use it at your own risk! I'd highly recommend anyone to use the official [Ghost(Pro)](https://ghost.org/pricing/) managed service instead.
 
+## Table of Contents
+
 - [Wraith](#wraith)
+  - [Table of Contents](#table-of-contents)
   - [Requirements](#requirements)
   - [Set up Rclone](#set-up-rclone)
   - [How to use](#how-to-use)
