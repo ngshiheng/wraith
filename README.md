@@ -7,8 +7,9 @@ A simple Bash script to backup [Ghost](https://github.com/TryGhost/Ghost).
 
 - [Wraith](#wraith)
   - [Requirements](#requirements)
-  - [Setup Rclone](#setup-rclone)
+  - [Set up Rclone](#set-up-rclone)
   - [How to use](#how-to-use)
+  - [Set up a Cron job](#set-up-a-cron-job)
   - [FAQ](#faq)
     - [What to backup](#what-to-backup)
   - [Contributing](#contributing)
@@ -20,10 +21,10 @@ A list of CLI needed to be installed:
 -   [`ghost`](https://ghost.org/docs/ghost-cli/)
 -   [`mysql`](https://www.mysql.com/)
 -   [`rclone`](https://rclone.org/install/)
--   `gzip`
--   `tar`
+-   [`gzip`](https://www.gnu.org/software/gzip/)
+-   [`tar`](https://www.gnu.org/software/tar/)
 
-## Setup Rclone
+## Set up Rclone
 
 > Reference: https://rclone.org/
 
@@ -38,7 +39,15 @@ An example to configure Rclone with Google Drive:
 
 ## How to use
 
-Simply run `./backup.sh`
+1. Clone this repository
+2. Run [`./backup.sh`](backup.sh) from the repository directory
+
+## Set up a Cron job
+
+> Reference: https://crontab.guru/every-week
+
+1. Add a `crontab -e` item
+2. For this example, we will back up the data every week: `0 0 * * 0 cd /$HOME/wraith/ && ./backup.sh`
 
 ## FAQ
 
