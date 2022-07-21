@@ -58,4 +58,5 @@ log "Welcome to Wraith"
 backup_ghost_content
 backup_mysql
 rclone_to_cloud_storage
+clean_up
 log "Completed backup to $BACKUP_LOCATION"
