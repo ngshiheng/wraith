@@ -23,4 +23,5 @@ check_mysql_connection() {
         log "Could not connect to MySQL"
         exit 0
     fi
+    log "MySQL connection OK"
 }
