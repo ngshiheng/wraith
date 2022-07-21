@@ -1,6 +1,8 @@
 # Wraith
 
-A simple utility Bash script to backup [Ghost](https://github.com/TryGhost/Ghost).
+[![shellcheck](https://github.com/ngshiheng/wraith/actions/workflows/shellcheck.yml/badge.svg)](https://github.com/ngshiheng/wraith/actions/workflows/shellcheck.yml)
+
+A simple utility Bash script to backup [Ghost](https://github.com/TryGhost/Ghost) publishing platform.
 
 > **Warning**
 > This software comes with no warranties of any kind whatsoever, and may not be useful for anything. Use it at your own risk! I'd highly recommend anyone to use the official [Ghost(Pro)](https://ghost.org/pricing/) managed service instead.
