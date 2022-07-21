@@ -15,3 +15,12 @@ check_ghost_status() {
         exit 0
     fi
 }
+
+# check MySQL connection
+check_mysql_connection() {
+    log "Checking MySQL connection..."
+    if ! mysql -u$mysql_user -p$mysql_password -e ";" &>/dev/null; then
+        log "Could not connect to MySQL"
+        exit 0
+    fi
+}
