@@ -11,16 +11,17 @@ A simple Bash script to backup [Ghost](https://github.com/TryGhost/Ghost).
   - [How to use](#how-to-use)
   - [FAQ](#faq)
     - [What to backup](#what-to-backup)
+  - [Contributing](#contributing)
 
 ## Requirements
 
 A list of CLI needed to be installed:
 
--   [ ] [`ghost`](https://ghost.org/docs/ghost-cli/)
--   [ ] [`mysql`](https://www.mysql.com/)
--   [ ] [`rclone`](https://rclone.org/install/)
--   [ ] `gzip`
--   [ ] `tar`
+-   [`ghost`](https://ghost.org/docs/ghost-cli/)
+-   [`mysql`](https://www.mysql.com/)
+-   [`rclone`](https://rclone.org/install/)
+-   `gzip`
+-   `tar`
 
 ## Setup Rclone
 
@@ -45,8 +46,20 @@ Simply run `./backup.sh`
 
 > Reference: https://ghost.org/docs/ghost-cli/#ghost-backup
 
--   [ ] Your content in JSON format
--   [ ] A full member CSV export
--   [ ] All themes that have been installed including your current active theme
--   [ ] Images, files, and media (video and audio)
--   [ ] A copy of `routes.yaml` and `redirects.yaml` or `redirects.json`
+1. Your content in JSON format
+2. A full member CSV export
+3. All themes that have been installed including your current active theme
+4. Images, files, and media (video and audio)
+5. A copy of `routes.yaml` and `redirects.yaml` or `redirects.json`
+
+And your MySQL database.
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+1. Fork this
+2. Create your feature branch (`git checkout -b feature/bar`)
+3. Commit your changes (`git commit -am 'feat: add some bar'`, make sure that your commits are [semantic](https://www.conventionalcommits.org/en/v1.0.0/#summary))
+4. Push to the branch (`git push origin feature/bar`)
+5. Create a new Pull Request
