@@ -4,12 +4,28 @@
 
 A simple utility Bash script to backup [Ghost](https://github.com/TryGhost/Ghost) publishing platform.
 
-> **Warning**
-> This software comes with no warranties of any kind whatsoever, and may not be useful for anything. Use it at your own risk! I'd highly recommend anyone to use the official [Ghost(Pro)](https://ghost.org/pricing/) managed service instead.
+## Context
+
+Getting started with Ghost is easy. You would pick between:
+
+-   [Managed](https://ghost.org/pricing/) service
+-   Self-hosted on a [VPS](https://marketplace.digitalocean.com/apps/ghost) or serverless platform like [Railway](https://blog.railway.app/p/ghost)
+
+Using managed version will most likely save you a bunch of headaches (and time) that come along with self-hosting any other sites:
+
+-   Backups
+-   Maintenance
+-   Downtime recovery
+-   Security, etc.
+
+In short, you’d sleep easy at night while they stay awake.
+
+Having that said, if you want to take on the challenge of self-hosting your own Ghost site, here's a tiny script to help with your backups.
 
 ## Table of Contents
 
 - [Wraith](#wraith)
+  - [Context](#context)
   - [Table of Contents](#table-of-contents)
   - [Flowchart](#flowchart)
   - [Requirements](#requirements)
@@ -43,17 +59,20 @@ A list of CLI needed to be installed:
 
 Install `rclone` using `curl -s https://rclone.org/install.sh | bash`
 
-An example to configure Rclone with Google Drive:
+> **Note**
+> An example to configure Rclone with Google Drive:
 
 1. Run `rclone config`
-2. Follow https://rclone.org/drive/
-3. If you're working on a remote machine (e.g. Digital Ocean droplet via SSH), say N for the auto config prompt and follow the instruction
-4. Run `rclone lsd remote:/` to check your connection
+2. Name your remote `remote`
+3. Follow [rlcone.org/drive](https://rclone.org/drive/)
+4. If you're working on a remote machine (e.g. Digital Ocean droplet via SSH), say N for the auto config prompt and follow the instruction
+5. Run `rclone lsd remote:/` to check your connection
 
 ## How to use
 
-1. Clone this repository
-2. Run [`./backup.sh`](backup.sh) from the repository directory
+1. Switch to the ghost-mgr user to manage Ghost using `sudo -i -u ghost-mgr`
+2. Clone this repository
+3. Run [`./backup.sh`](backup.sh) from the repository directory
 
 ## Set up a Cron job
 
