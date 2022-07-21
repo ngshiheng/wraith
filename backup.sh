@@ -20,6 +20,16 @@ backup_ghost_content() {
     tar -czf "$GHOST_CONTENT_BACKUP_FILENAME" content/
 }
 
+# check MySQL connection
+check_mysql_connection() {
+    log "Checking MySQL connection..."
+    if ! mysql -u"$mysql_user" -p"$mysql_password" -e ";" &>/dev/null; then
+        log "Could not connect to MySQL"
+        exit 0
+    fi
+    log "MySQL connection OK"
+}
+
 # backup MySQL database
 backup_mysql() {
     log "Backing up MySQL database"
