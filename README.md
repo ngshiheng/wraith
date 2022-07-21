@@ -1,9 +1,5 @@
 # Wraith
 
-<p align="center">
-  <img src="assets/wraith.svg">
-</p>
-
 A simple utility Bash script to backup [Ghost](https://github.com/TryGhost/Ghost).
 
 > **Warning**
