@@ -41,7 +41,7 @@ Having that said, if you want to take on the challenge of self-hosting your own 
 
 ```mermaid
 graph LR
-  1(["start"]) --> 2["compress content/"] --> 3["run mysqldump"] --> 4["rclone zip files to cloud storage"] --> 5["clean up"] --> 6(["end"])
+  1(["start"]) --> 2["run checks"] --> 3["tar content/"] --> 4["run mysqldump"] --> 5["rclone zip files to cloud storage"] --> 6["clean up"] --> 7(["end"])
 ```
 
 ## Requirements

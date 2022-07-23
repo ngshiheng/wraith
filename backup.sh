@@ -2,15 +2,34 @@
 
 set -e
 
-source check.sh
 source util.sh
 
 GHOST_DIR="/var/www/ghost/"
-TIMESTAMP=$(date +%Y_%m_%d_%H%M)
-BACKUP_LOCATION="ghost_backups/"
 
+REMOTE_BACKUP_LOCATION="ghost_backups/"
+
+TIMESTAMP=$(date +%Y_%m_%d_%H%M)
 GHOST_CONTENT_BACKUP_FILENAME="ghost_content_$TIMESTAMP.tar.gz"
 GHOST_MYSQL_BACKUP_FILENAME="ghost_mysql_$TIMESTAMP.sql.gz"
+
+# run checks
+pre_backup_checks() {
+    log "Running pre-backup checks"
+
+    if [ ! -d "$GHOST_DIR" ]; then
+        log "Ghost directory does not exist"
+        exit 0
+    fi
+
+    cd $GHOST_DIR
+    check_command_installation tar
+    check_command_installation gzip
+    check_command_installation mysql
+    check_command_installation mysqldump
+    check_command_installation ghost
+    check_command_installation rclone
+    check_ghost_status
+}
 
 # backup Ghost content folder
 backup_ghost_content() {
@@ -46,13 +65,15 @@ backup_mysql() {
 }
 
 # `rclone` backup
-# assumes that user already has rclone configured
+# assumes that rclone is configured
 rclone_to_cloud_storage() {
     log "Rclone backup..."
     cd $GHOST_DIR
 
-    rclone copy "$GHOST_DIR/$GHOST_CONTENT_BACKUP_FILENAME" remote:$BACKUP_LOCATION
-    rclone copy "$GHOST_DIR/$GHOST_MYSQL_BACKUP_FILENAME" remote:$BACKUP_LOCATION
+    rclone_remote_name="remote" # TODO: parse from config or prompt
+
+    rclone copy "$GHOST_DIR/$GHOST_CONTENT_BACKUP_FILENAME" "$rclone_remote_name:$REMOTE_BACKUP_LOCATION"
+    rclone copy "$GHOST_DIR/$GHOST_MYSQL_BACKUP_FILENAME" "$rclone_remote_name:$REMOTE_BACKUP_LOCATION"
 }
 
 # clean up old backups
@@ -65,8 +86,9 @@ clean_up() {
 }
 
 log "Welcome to Wraith"
+pre_backup_checks
 backup_ghost_content
 backup_mysql
 rclone_to_cloud_storage
 clean_up
-log "Completed backup to $BACKUP_LOCATION"
+log "Completed backup to $REMOTE_BACKUP_LOCATION"
