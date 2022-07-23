@@ -34,6 +34,7 @@ Having that said, if you want to take on the challenge of self-hosting your own 
   - [Set up a Cron job](#set-up-a-cron-job)
   - [FAQ](#faq)
     - [What to backup](#what-to-backup)
+    - [What is the difference between Wraith and `ghost backup` command](#what-is-the-difference-between-wraith-and-ghost-backup-command)
   - [Contributing](#contributing)
 
 ## Flowchart
@@ -65,12 +66,12 @@ Install `rclone` using `curl -s https://rclone.org/install.sh | bash`
 1. Run `rclone config`
 2. Name your remote `remote`
 3. Follow [rlcone.org/drive](https://rclone.org/drive/)
-4. If you're working on a remote machine (e.g. Digital Ocean droplet via SSH), say N for the auto config prompt and follow the instruction
+4. If you're working on a remote machine without a browser (e.g. Digital Ocean Droplet via SSH), say `N` for the auto config prompt. Follow through the instructions
 5. Run `rclone lsd remote:/` to check your connection
 
 ## How to use
 
-1. Switch to the ghost-mgr user to manage Ghost using `sudo -i -u ghost-mgr`
+1. Switch to the `ghost-mgr` user to manage Ghost using `sudo -i -u ghost-mgr`
 2. Clone this repository
 3. Run [`./backup.sh`](backup.sh) from the repository directory
 
@@ -92,8 +93,11 @@ Install `rclone` using `curl -s https://rclone.org/install.sh | bash`
 3. All themes that have been installed including your current active theme
 4. Images, files, and media (video and audio)
 5. A copy of `routes.yaml` and `redirects.yaml` or `redirects.json`
+6. MySQL database
 
-And your MySQL database.
+### What is the difference between Wraith and `ghost backup` command
+
+Starting Ghost-CLI version: 1.21.0 they started supporting `ghost backup` command. However, the current `ghost backup` command does not support MySQL dump.
 
 ## Contributing
 
