@@ -14,20 +14,18 @@ GHOST_MYSQL_BACKUP_FILENAME="ghost_mysql_$TIMESTAMP.sql.gz"
 
 # run checks
 pre_backup_checks() {
-    log "Running pre-backup checks"
-
     if [ ! -d "$GHOST_DIR" ]; then
         log "Ghost directory does not exist"
         exit 0
     fi
 
+    log "Running pre-backup checks"
     cd $GHOST_DIR
-    check_command_installation tar
-    check_command_installation gzip
-    check_command_installation mysql
-    check_command_installation mysqldump
-    check_command_installation ghost
-    check_command_installation rclone
+
+    cli=("tar" "gzip" "mysql" "mysqldump" "ghost" "rclone")
+    for c in "${cli[@]}"; do
+        check_command_installation "$c"
+    done
     check_ghost_status
 }
 
