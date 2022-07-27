@@ -32,6 +32,7 @@ Having that said, if you want to take on the challenge of self-hosting your own 
   - [Set up Rclone](#set-up-rclone)
   - [How to use](#how-to-use)
   - [Set up a Cron job](#set-up-a-cron-job)
+  - [Testing and restoring backup](#testing-and-restoring-backup)
   - [FAQ](#faq)
     - [What to backup](#what-to-backup)
     - [What is the difference between Wraith and `ghost backup` command](#what-is-the-difference-between-wraith-and-ghost-backup-command)
@@ -71,9 +72,13 @@ Install `rclone` using `curl -s https://rclone.org/install.sh | bash`
 
 ## How to use
 
-1. Switch to the `ghost-mgr` user to manage Ghost using `sudo -i -u ghost-mgr`
-2. Clone this repository
-3. Run [`./backup.sh`](backup.sh) from the repository directory
+> **Note**
+> Switch to the `ghost-mgr` user to manage Ghost using `sudo -i -u ghost-mgr`
+
+1. SSH into your VPS where you host your Ghost site
+2. [Set up Rclone](#set-up-rclone)
+3. Clone this repository
+4. Run [`./backup.sh`](backup.sh) from the repository directory
 
 ## Set up a Cron job
 
@@ -81,6 +86,20 @@ Install `rclone` using `curl -s https://rclone.org/install.sh | bash`
 
 1. Add a `crontab -e` item
 2. For this example, we will back up the data every week: `0 0 * * 0 cd /$HOME/wraith/ && ./backup.sh`
+
+## Testing and restoring backup
+
+> Backups are not backups unless you have tested restoring from them.
+
+Let's test our backup locally using [Docker](https://hub.docker.com/_/ghost).
+
+1. At a new directory, copy your `ghost_content_YYYY_MM_DD_HHMM.tar.gz` backup file there. Decompress the backup files using `tar -xvf`
+2. Run Ghost locally using `docker run -d --name some-ghost -e url=http://localhost:3001 -p 3001:2368 -v /path/to/images:/var/lib/ghost/content/images ghost` to restore the blog images
+3. Visit [`localhost:3001/ghost`](http://localhost:3001/ghost) to create an admin account
+4. From the Ghost Admin interface ([`localhost:3001/ghost/#/settings/labs`](http://localhost:3001/ghost/#/settings/labs)), import your JSON Ghost blog content from decompressed `data/`
+5. You can import your members CSV from the Members page too
+
+Tip: run `bash` within your Ghost Docker container using `docker exec -it some-ghost bash`
 
 ## FAQ
 
