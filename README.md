@@ -22,6 +22,8 @@ In short, you’d sleep easy at night while they stay awake.
 
 Having that said, if you want to take on the challenge of self-hosting your own Ghost site, here's a tiny script to help with your backups.
 
+[Read more...](https://jerrynsh.com/backing-up-ghost-blog-in-5-steps/)
+
 ## Table of Contents
 
 - [Wraith](#wraith)
