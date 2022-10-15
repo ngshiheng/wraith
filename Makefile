@@ -12,7 +12,7 @@ TAR = $(shell command -v tar 2> /dev/null)
 
 .PHONY: help
 help:	## display help message.
-	@echo "Welcome to $(NAME)!"
+	@echo "Welcome to $(NAME)"
 	@awk 'BEGIN {FS = ":.*##"; printf "Use make \033[36m<target>\033[0m where \033[36m<target>\033[0m is one of:\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 
 .PHONY: check
@@ -23,6 +23,7 @@ check: ## check if all requirements are installed.
 	@if [ -z $(RCLONE) ]; then curl -s https://rclone.org/install.sh | bash; fi
 	@if [ -z $(GZIP) ]; then echo "`gzip` could not be found. See https://www.gnu.org/software/gzip/"; exit 2; fi
 	@if [ -z $(TAR) ]; then echo "`tar` could not be found. See https://www.gnu.org/software/tar/"; exit 2; fi
+	@echo "Passed requirements checks"
 
 .PHONY: setup
 setup: check	## install and setup rclone.
