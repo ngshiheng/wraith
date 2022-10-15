@@ -4,6 +4,10 @@
 
 A simple utility Bash script to backup [Ghost](https://github.com/TryGhost/Ghost) publishing platform.
 
+> 💡 Tip: run `make help` to display help message.
+>
+> Check out the [Makefile](./Makefile)
+
 ## Context
 
 Getting started with Ghost is easy. You would pick between:
@@ -36,8 +40,6 @@ Having that said, if you want to take on the challenge of self-hosting your own 
   - [Set up a Cron job](#set-up-a-cron-job)
   - [Testing and restoring backup](#testing-and-restoring-backup)
   - [FAQ](#faq)
-    - [What to backup](#what-to-backup)
-    - [What is the difference between Wraith and `ghost backup` command](#what-is-the-difference-between-wraith-and-ghost-backup-command)
   - [Contributing](#contributing)
 
 ## Flowchart
@@ -49,6 +51,8 @@ graph LR
 
 ## Requirements
 
+> 💡 Tip: run `make check` to check if all requirements are installed.
+
 A list of CLI needed to be installed:
 
 -   [`ghost`](https://ghost.org/docs/ghost-cli/)
@@ -59,12 +63,12 @@ A list of CLI needed to be installed:
 
 ## Set up Rclone
 
-> Reference: [rclone.org](https://rclone.org/)
-
-Install `rclone` using `curl -s https://rclone.org/install.sh | bash`
+> 💡 Tip: run `make setup`.
 
 > **Note**
-> An example to configure Rclone with Google Drive:
+> Install `rclone` using `curl -s https://rclone.org/install.sh | bash`
+>
+> An example to configure Rclone with Google Drive ([reference](https://rclone.org/drive/)):
 
 1. Run `rclone config`
 2. Name your remote `remote`
@@ -105,29 +109,8 @@ Tip: run `bash` within your Ghost Docker container using `docker exec -it some-g
 
 ## FAQ
 
-### What to backup
-
-> Reference: [ghost.org/docs/ghost-cli/#ghost-backup](https://ghost.org/docs/ghost-cli/#ghost-backup)
-
-1. Your content in JSON format
-2. A full member CSV export
-3. All themes that have been installed including your current active theme
-4. Images, files, and media (video and audio)
-5. A copy of `routes.yaml` and `redirects.yaml` or `redirects.json`
-6. MySQL database
-
-### What is the difference between Wraith and `ghost backup` command
-
-Starting Ghost-CLI version: 1.21.0 they started supporting `ghost backup` command. However, the current `ghost backup` command does not support MySQL dump.
+See [FAQ.md](docs/FAQ.md).
 
 ## Contributing
 
-Please following the [Bash Coding Style repository](https://github.com/icy/bash-coding-style) for Bash coding conventions and good practices.
-
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-1. Fork this
-2. Create your feature branch (`git checkout -b feature/bar`)
-3. Commit your changes (`git commit -am 'feat: add some bar'`, make sure that your commits are [semantic](https://www.conventionalcommits.org/en/v1.0.0/#summary))
-4. Push to the branch (`git push origin feature/bar`)
-5. Create a new Pull Request
+See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
