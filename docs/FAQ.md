@@ -1,6 +1,14 @@
 ## FAQ
 
-### What to backup
+- [FAQ](#faq)
+  - [What to backup?](#what-to-backup)
+  - [What is the difference between wraith and `ghost backup` command?](#what-is-the-difference-between-wraith-and-ghost-backup-command)
+  - [Does wraith work on Ghost version x.yy.zz?](#does-wraith-work-on-ghost-version-xyyzz)
+  - [How to set up Rclone?](#how-to-set-up-rclone)
+  - [How to set up a Cron job?](#how-to-set-up-a-cron-job)
+  - [How to test and restore backup?](#how-to-test-and-restore-backup)
+
+### What to backup?
 
 > Reference: [ghost.org/docs/ghost-cli/#ghost-backup](https://ghost.org/docs/ghost-cli/#ghost-backup)
 
@@ -11,6 +19,70 @@
 5. A copy of `routes.yaml` and `redirects.yaml` or `redirects.json`
 6. MySQL database
 
-### What is the difference between Wraith and `ghost backup` command
+### What is the difference between wraith and `ghost backup` command?
 
 Starting Ghost-CLI version: 1.21.0 they started supporting `ghost backup` command. However, the current `ghost backup` command does not support MySQL dump.
+
+`wraith` now invokes `ghost backup` under the hood.
+
+### Does wraith work on Ghost version x.yy.zz?
+
+Wraith was last developed & tested on:
+
+```sh
+ghost-mgr@personal-site:/var/www/ghost$ ghost version
+Ghost-CLI version: 1.23.1
+Ghost version: 5.33.6 (at /var/www/ghost)
+
+ghost-mgr@personal-site:/var/www/ghost$ mysql --version
+mysql  Ver 8.0.32-0ubuntu0.20.04.2 for Linux on x86_64 ((Ubuntu))
+
+ghost-mgr@personal-site:/var/www/ghost$ cat /etc/os-release
+NAME="Ubuntu"
+VERSION="20.04.5 LTS (Focal Fossa)"
+ID=ubuntu
+ID_LIKE=debian
+PRETTY_NAME="Ubuntu 20.04.5 LTS"
+VERSION_ID="20.04"
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+VERSION_CODENAME=focal
+UBUNTU_CODENAME=focal
+```
+
+### How to set up Rclone?
+
+Install `rclone` using `curl -s https://rclone.org/install.sh | bash`
+
+1. Run `rclone config`
+2. Name your remote `remote`
+3. Follow [rlcone.org/drive](https://rclone.org/drive/)
+4. If you're working on a remote machine without a browser (e.g. Digital Ocean Droplet via SSH), say `N` for the auto config prompt. Follow through the instructions
+5. Run `rclone lsd remote:/` to check your connection
+
+An example to configure Rclone with Google Drive ([reference](https://rclone.org/drive/)):
+
+_NOTE: If you're getting `Error 403:rate_limit_exceeded` error, [read this](https://forum.rclone.org/t/google-drive-error-403-rate-limit-exceeded-when-authorizing-rclone/34565/2)._
+
+### How to set up a Cron job?
+
+> Reference: [crontab.guru](https://crontab.guru/every-week)
+
+1. Add a `crontab -e` item
+2. For this example, we will back up the data every week: `0 0 * * 0 cd /$HOME/wraith/ && ./backup.sh`
+
+### How to test and restore backup?
+
+> "Backups are not backups unless you have tested restoring from them."
+
+Let's test our backup locally using [Docker](https://hub.docker.com/_/ghost).
+
+1. At a new directory, copy your `ghost_content_YYYY_MM_DD_HHMM.tar.gz` backup file there. Decompress the backup files using `tar -xvf`
+2. Run Ghost locally using `docker run -d --name some-ghost -e url=http://localhost:3001 -p 3001:2368 -v /path/to/images:/var/lib/ghost/content/images ghost` to restore the blog images
+3. Visit [`localhost:3001/ghost`](http://localhost:3001/ghost) to create an admin account
+4. From the Ghost Admin interface ([`localhost:3001/ghost/#/settings/labs`](http://localhost:3001/ghost/#/settings/labs)), import your JSON Ghost blog content from decompressed `data/`
+5. You can import your members CSV from the Members page too
+
+Tip: run `bash` within your Ghost Docker container using `docker exec -it some-ghost bash`
