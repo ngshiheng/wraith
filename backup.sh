@@ -9,7 +9,7 @@ GHOST_DIR="/var/www/ghost/"
 REMOTE_BACKUP_LOCATION="ghost_backups/"
 
 TIMESTAMP=$(date +%Y_%m_%d_%H%M)
-GHOST_CONTENT_BACKUP_FILENAME="ghost_content_$TIMESTAMP.tar.gz"
+GHOST_CONTENT_FILENAME="ghost_content_$TIMESTAMP.tar.gz"
 GHOST_MYSQL_BACKUP_FILENAME="ghost_mysql_$TIMESTAMP.sql.gz"
 
 # run checks
@@ -22,7 +22,7 @@ pre_backup_checks() {
     log "Running pre-backup checks"
     cd $GHOST_DIR
 
-    cli=("tar" "gzip" "mysql" "mysqldump" "ghost" "rclone")
+    cli=("expect" "tar" "gzip" "mysql" "mysqldump" "ghost" "rclone")
     for c in "${cli[@]}"; do
         check_command_installation "$c"
     done
@@ -30,11 +30,13 @@ pre_backup_checks() {
 }
 
 # backup Ghost content folder
+# assumes that `ghost backup` is configured using `autoexpect -f ghostbackup.exp ghost backup`
 backup_ghost_content() {
     log "Dumping Ghost content..."
     cd $GHOST_DIR
 
-    tar -czf "$GHOST_CONTENT_BACKUP_FILENAME" content/
+    expect ghostbackup.exp
+    tar -czf "$GHOST_CONTENT_FILENAME" content/
 }
 
 # check MySQL connection
@@ -63,14 +65,14 @@ backup_mysql() {
 }
 
 # `rclone` backup
-# assumes that rclone is configured
+# assumes that `rclone config` is configured
 rclone_to_cloud_storage() {
     log "Rclone backup..."
     cd $GHOST_DIR
 
     rclone_remote_name="remote" # TODO: parse from config or prompt
 
-    rclone copy "$GHOST_DIR/$GHOST_CONTENT_BACKUP_FILENAME" "$rclone_remote_name:$REMOTE_BACKUP_LOCATION"
+    rclone copy "$GHOST_DIR/$GHOST_CONTENT_FILENAME" "$rclone_remote_name:$REMOTE_BACKUP_LOCATION"
     rclone copy "$GHOST_DIR/$GHOST_MYSQL_BACKUP_FILENAME" "$rclone_remote_name:$REMOTE_BACKUP_LOCATION"
 }
 
@@ -79,14 +81,20 @@ clean_up() {
     log "Cleaning up old backups..."
     cd $GHOST_DIR
 
-    rm -r "$GHOST_CONTENT_BACKUP_FILENAME"
+    rm -r "$GHOST_CONTENT_FILENAME"
     rm -r "$GHOST_MYSQL_BACKUP_FILENAME"
+    rm -r backup/
 }
 
-log "Welcome to Wraith"
-pre_backup_checks
-backup_ghost_content
-backup_mysql
-rclone_to_cloud_storage
-clean_up
-log "Completed backup to $REMOTE_BACKUP_LOCATION"
+# main entrypoint of the script
+main() {
+    log "Welcome to wraith"
+    pre_backup_checks
+    backup_ghost_content
+    backup_mysql
+    rclone_to_cloud_storage
+    clean_up
+    log "Completed backup to $REMOTE_BACKUP_LOCATION"
+}
+
+main
