@@ -4,13 +4,10 @@ set -eu
 
 source util.sh
 
+TIMESTAMP=$(date +%Y-%m-%d-%H%M)
 GHOST_DIR="/var/www/ghost/"
-
-REMOTE_BACKUP_LOCATION="ghost_backups/"
-
-TIMESTAMP=$(date +%Y_%m_%d_%H%M)
-GHOST_CONTENT_FILENAME="ghost_content_$TIMESTAMP.tar.gz"
-GHOST_MYSQL_BACKUP_FILENAME="ghost_mysql_$TIMESTAMP.sql.gz"
+GHOST_MYSQL_BACKUP_FILENAME="backup-from-mysql-$TIMESTAMP.sql.gz"
+REMOTE_BACKUP_LOCATION="Ghost Backups/"
 
 # run checks
 pre_backup_checks() {
@@ -22,7 +19,7 @@ pre_backup_checks() {
     log "Running pre-backup checks"
     cd $GHOST_DIR
 
-    cli=("expect" "tar" "gzip" "mysql" "mysqldump" "ghost" "rclone")
+    cli=("expect" "gzip" "mysql" "mysqldump" "ghost" "rclone")
     for c in "${cli[@]}"; do
         check_command_installation "$c"
     done
@@ -32,11 +29,10 @@ pre_backup_checks() {
 # backup Ghost content folder
 # assumes that `ghost backup` is configured using `autoexpect -f ghostbackup.exp ghost backup`
 backup_ghost_content() {
-    log "Dumping Ghost content..."
+    log "Running ghost backup..."
     cd $GHOST_DIR
 
     expect ghostbackup.exp
-    tar -czf "$GHOST_CONTENT_FILENAME" content/
 }
 
 # check MySQL connection
@@ -51,7 +47,7 @@ check_mysql_connection() {
 
 # backup MySQL database
 backup_mysql() {
-    log "Backing up MySQL database"
+    log "Backing up MySQL database..."
     cd $GHOST_DIR
 
     mysql_user=$(ghost config get database.connection.user | tail -n1)
@@ -72,18 +68,18 @@ rclone_to_cloud_storage() {
 
     rclone_remote_name="remote" # TODO: parse from config or prompt
 
-    rclone copy "$GHOST_DIR/$GHOST_CONTENT_FILENAME" "$rclone_remote_name:$REMOTE_BACKUP_LOCATION"
-    rclone copy "$GHOST_DIR/$GHOST_MYSQL_BACKUP_FILENAME" "$rclone_remote_name:$REMOTE_BACKUP_LOCATION"
+    rclone copy backup-from-*-on-*.zip "$rclone_remote_name:$REMOTE_BACKUP_LOCATION"
+    rclone copy "$GHOST_MYSQL_BACKUP_FILENAME" "$rclone_remote_name:$REMOTE_BACKUP_LOCATION"
 }
 
 # clean up old backups
 clean_up() {
-    log "Cleaning up old backups..."
+    log "Cleaning up backups..."
     cd $GHOST_DIR
 
-    rm -r "$GHOST_CONTENT_FILENAME"
-    rm -r "$GHOST_MYSQL_BACKUP_FILENAME"
     rm -r backup/
+    rm backup-from-*-on-*.zip
+    rm "$GHOST_MYSQL_BACKUP_FILENAME"
 }
 
 # main entrypoint of the script
