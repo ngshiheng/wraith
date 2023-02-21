@@ -68,7 +68,7 @@ Run `make setup` to set up [`rclone`](docs/FAQ.md#how-to-setup-rclone), `autoexp
 
 1. Switch to the `ghost-mgr` user to manage Ghost using `sudo -i -u ghost-mgr`
 2. SSH into your VPS where you host your Ghost site
-3. [Set up Rclone](#set-up-rclone)
+3. Set up Rclone
 4. Clone this repository
 5. Run [`./backup.sh`](backup.sh) from the repository directory (or run `make backup`)
 

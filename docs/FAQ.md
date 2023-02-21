@@ -54,15 +54,14 @@ UBUNTU_CODENAME=focal
 
 ### How to set up Rclone?
 
-Install `rclone` using `curl -s https://rclone.org/install.sh | bash`
+1. Install `rclone` using `curl -s https://rclone.org/install.sh | bash`
+2. Run `rclone config`
+3. Name your remote `remote`
+4. Check https://rclone.org//#providers and use the cloud provider of your choice
+5. If you're working on a remote machine without a browser (e.g. Digital Ocean Droplet via SSH), say `N` for the auto config prompt. Follow through the instructions
+6. Run `rclone lsd remote:/` to check your connection
 
-1. Run `rclone config`
-2. Name your remote `remote`
-3. Follow [rlcone.org/drive](https://rclone.org/drive/)
-4. If you're working on a remote machine without a browser (e.g. Digital Ocean Droplet via SSH), say `N` for the auto config prompt. Follow through the instructions
-5. Run `rclone lsd remote:/` to check your connection
-
-An example to configure Rclone with Google Drive ([reference](https://rclone.org/drive/)):
+An example to configure Rclone with Google Drive ([reference](https://rclone.org/drive/)).
 
 _NOTE: If you're getting `Error 403:rate_limit_exceeded` error, [read this](https://forum.rclone.org/t/google-drive-error-403-rate-limit-exceeded-when-authorizing-rclone/34565/2)._
 
