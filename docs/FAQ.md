@@ -79,7 +79,7 @@ _NOTE: If you're getting `Error 403:rate_limit_exceeded` error, [read this](http
 
 Let's test our backup locally using [Docker](https://hub.docker.com/_/ghost).
 
-1. At a new directory, copy your `ghost_content_YYYY_MM_DD_HHMM.tar.gz` backup file there. Decompress the backup files using `tar -xvf`
+1. At a new directory, copy your `backup-from-vA.BB.Z-on-YYYY-MM-DD-HH-MM-SS` backup file there. Decompress the backup files using `unzip`
 2. Run Ghost locally using `docker run -d --name some-ghost -e url=http://localhost:3001 -p 3001:2368 -v /path/to/images:/var/lib/ghost/content/images ghost` to restore the blog images
 3. Visit [`localhost:3001/ghost`](http://localhost:3001/ghost) to create an admin account
 4. From the Ghost Admin interface ([`localhost:3001/ghost/#/settings/labs`](http://localhost:3001/ghost/#/settings/labs)), import your JSON Ghost blog content from decompressed `data/`

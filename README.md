@@ -41,7 +41,7 @@ Having that said, if you want to take on the challenge of self-hosting your own 
 
 ```mermaid
 graph LR
-  1(["start"]) --> 2["run checks"] --> 3["ghost backup & tar content/"] --> 4["run mysqldump"] --> 5["rclone zip files to cloud storage"] --> 6["clean up"] --> 7(["end"])
+  1(["start"]) --> 2["run checks"] --> 3["run `ghost backup`"] --> 4["run `mysqldump`"] --> 5["`rclone` backups to cloud storage"] --> 6["clean up"] --> 7(["end"])
 ```
 
 ## Requirements
@@ -55,7 +55,6 @@ A list of CLI required to be installed:
 -   [`gzip`](https://www.gnu.org/software/gzip/)
 -   [`mysql`](https://www.mysql.com/)
 -   [`rclone`](https://rclone.org/install/)
--   [`tar`](https://www.gnu.org/software/tar/)
 
 ## Setup
 

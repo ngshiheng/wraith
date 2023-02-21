@@ -17,11 +17,3 @@ restore_mysql() {
     log "Restoring MySQL database..."
     gunzip -c "$GHOST_MYSQL_BACKUP_FILENAME" | mysql -u"$mysql_user" -p"$mysql_password" "$mysql_database"
 }
-
-# restore Ghost content folder
-restore_ghost_content() {
-    log "Restoring Ghost content..."
-    cd "$GHOST_DIR" || exit
-
-    tar -xzf "$GHOST_CONTENT_BACKUP_FILENAME"
-}
