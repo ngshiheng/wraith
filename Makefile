@@ -35,7 +35,7 @@ setup: check	## setup rclone, autoexpect, and cron.
 	@echo "Setting up ghost backup with autoexpect..."
 	cd /var/www/ghost && autoexpect -f ghostbackup.exp -c ghost backup && cd ~
 	@echo "Set up a cron job to run at https://crontab.guru/#0_4_*_*_1"
-	(crontab -l 2>/dev/null; echo "0 4 * * 1 cd ~/wraith/ && ./backup.sh") | crontab -
+	(crontab -l 2>/dev/null; echo "0 4 * * 1 cd ~/wraith/ && USER=ghost-mgr bash backup.sh > /tmp/wraith.log") | crontab -
 
 .PHONY: backup
 backup:	## run backup script.
