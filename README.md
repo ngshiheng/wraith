@@ -2,7 +2,7 @@
 
 [![shellcheck](https://github.com/ngshiheng/wraith/actions/workflows/shellcheck.yml/badge.svg)](https://github.com/ngshiheng/wraith/actions/workflows/shellcheck.yml)
 
-A simple utility Bash script to backup [Ghost](https://github.com/TryGhost/Ghost) publishing platform.
+A simple utility Bash script to backup [Ghost](https://github.com/TryGhost/Ghost) publishing platform. This script enables Ghost users to quickly and easily back up their entire platform, including the MySQL database.
 
 ## Context
 
@@ -35,13 +35,13 @@ Having that said, if you want to take on the challenge of self-hosting your own 
   - [Usage](#usage)
   - [FAQ](#faq)
   - [Contributing](#contributing)
-  - [Support](#support)
+  - [License](#license)
 
 ## Flowchart
 
 ```mermaid
 graph LR
-  1(["start"]) --> 2["run checks"] --> 3["run `ghost backup`"] --> 4["run `mysqldump`"] --> 5["`rclone` backups to cloud storage"] --> 6["clean up"] --> 7(["end"])
+  1(["start"]) --> 2["run checks"] --> 3["clean up"] --> 4["run `ghost backup`"] --> 5["run `mysqldump`"] --> 6["`rclone` backups to cloud storage"] --> 7["clean up"] --> 8(["end"])
 ```
 
 ## Requirements
@@ -62,15 +62,15 @@ A list of CLI required to be installed:
 >
 > Check out the [Makefile](./Makefile)
 
-Run `make setup` to set up [`rclone`](docs/FAQ.md#how-to-setup-rclone), `autoexpect`, and [`cron`](docs/FAQ.md#how-to-set-up-a-cron-job).
+Run `make setup` to set up [`rclone`](docs/FAQ.md#how-to-set-up-rclone), `autoexpect`, and [`cron`](docs/FAQ.md#how-to-set-up-a-cron-job).
 
 ## Usage
 
-1. SSH into your VPS where you host your Ghost site
-2. Switch to the `ghost-mgr` user to manage Ghost using `sudo -i -u ghost-mgr`
-3. Clone this repository
-4. Setup `rclone`, `autoexpect` once (or run `make setup`)
-5. Run [`./backup.sh`](backup.sh) from the repository directory (or run `make backup`)
+1. Access your Virtual Private Server (VPS) where your Ghost site is hosted
+2. Utilize the `sudo -i -u ghost-mgr` command to switch to the `ghost-mgr` user, which is responsible for managing Ghost
+3. Clone the repository onto the VPS
+4. Configure `rclone` and `autoexpect` once (or execute the `make setup` command)
+5. Execute the `./backup.sh` command from within the cloned repository directory (or utilize `make backup`). This will run the backup script and initiate the backup process
 
 ## FAQ
 
@@ -80,9 +80,6 @@ See [FAQ.md](docs/FAQ.md).
 
 See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
-## Support
+## License
 
-Referrals:
-
--   [Digital Ocean](https://m.do.co/c/afdb6bd48884)
--   [Ghost](https://ghost.org/?via=jerry99)
+See [LICENSE](LICENSE).

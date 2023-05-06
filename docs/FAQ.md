@@ -2,8 +2,8 @@
 
 - [FAQ](#faq)
   - [What to backup?](#what-to-backup)
-  - [What is the difference between wraith and `ghost backup` command?](#what-is-the-difference-between-wraith-and-ghost-backup-command)
-  - [Does wraith work on Ghost version x.yy.zz?](#does-wraith-work-on-ghost-version-xyyzz)
+  - [What is the difference between `wraith` and `ghost backup` command?](#what-is-the-difference-between-wraith-and-ghost-backup-command)
+  - [Does `wraith` work on Ghost version x.yy.zz?](#does-wraith-work-on-ghost-version-xyyzz)
   - [How to set up Rclone?](#how-to-set-up-rclone)
   - [How to set up a Cron job?](#how-to-set-up-a-cron-job)
   - [How to test and restore backup?](#how-to-test-and-restore-backup)
@@ -19,25 +19,25 @@
 5. A copy of `routes.yaml` and `redirects.yaml` or `redirects.json`
 6. MySQL database
 
-### What is the difference between wraith and `ghost backup` command?
+### What is the difference between `wraith` and `ghost backup` command?
 
-Starting Ghost-CLI version: 1.21.0 they started supporting `ghost backup` command. However, the current `ghost backup` command does not support MySQL dump.
+Starting Ghost-CLI version: 1.21.0 they started supporting `ghost backup` command. However, the current `ghost backup` command does not include a backup of MySQL by default.
 
 `wraith` now invokes `ghost backup` under the hood.
 
-### Does wraith work on Ghost version x.yy.zz?
+### Does `wraith` work on Ghost version x.yy.zz?
 
-Wraith was last developed & tested on:
+`wraith` was last developed & tested on:
 
 ```sh
-ghost-mgr@personal-site:/var/www/ghost$ ghost version
+# ghost version
 Ghost-CLI version: 1.23.1
 Ghost version: 5.33.6 (at /var/www/ghost)
 
-ghost-mgr@personal-site:/var/www/ghost$ mysql --version
+# mysql --version
 mysql  Ver 8.0.32-0ubuntu0.20.04.2 for Linux on x86_64 ((Ubuntu))
 
-ghost-mgr@personal-site:/var/www/ghost$ cat /etc/os-release
+# cat /etc/os-release
 NAME="Ubuntu"
 VERSION="20.04.5 LTS (Focal Fossa)"
 ID=ubuntu

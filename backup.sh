@@ -27,7 +27,7 @@ pre_backup_checks() {
 }
 
 # backup Ghost content folder
-# assumes that `ghost backup` is configured using `autoexpect -f ghostbackup.exp ghost backup`
+# assumes that `ghost backup` is configured using `autoexpect -f ghostbackup.exp -c ghost backup`
 backup_ghost_content() {
     log "Running ghost backup..."
     cd $GHOST_DIR
@@ -77,15 +77,16 @@ clean_up() {
     log "Cleaning up backups..."
     cd $GHOST_DIR
 
-    rm -r backup/
-    rm backup-from-*-on-*.zip
-    rm "$GHOST_MYSQL_BACKUP_FILENAME"
+    rm -rf backup/
+    rm -f backup-from-*-on-*.zip
+    rm -f "$GHOST_MYSQL_BACKUP_FILENAME"
 }
 
 # main entrypoint of the script
 main() {
     log "Welcome to wraith"
     pre_backup_checks
+    clean_up
     backup_ghost_content
     backup_mysql
     rclone_to_cloud_storage
