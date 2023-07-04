@@ -25,7 +25,7 @@ check: ## check if all requirements are installed.
 	@if [ -z $(GZIP) ]; then echo "`gzip` could not be found. See https://www.gnu.org/software/gzip/"; exit 2; fi
 	@if [ -z $(MYSQL) ]; then echo "`mysql` could not be found. See https://dev.mysql.com/doc/"; exit 2; fi
 	@if [ -z $(RCLONE) ]; then curl -s https://rclone.org/install.sh | bash; fi
-	@echo "Passed requirements checks"
+	@echo "Passed requirements checks."
 
 ##@ Usage
 .PHONY: setup
@@ -37,8 +37,8 @@ setup: check	## setup rclone, ghost backup, and cron.
 	chmod +x /var/www/ghost/wraith.exp
 	@echo "Setting up a cron job to run at 04:00 on Monday"
 	(crontab -l 2>/dev/null; echo "0 4 * * 1 cd ~/wraith/ && USER=ghost-mgr bash backup.sh > /tmp/wraith.log") | crontab -
-	@echo "Last action required: update the `email` and `password` field in `wraith.exp` for `ghost backup` to work."
-	@echo "To update the Cron schedule, run `crontab -e`."
+	@echo "Last action required: update the email and password field in wraith.exp for ghost backup to work."
+	@echo "To update the Cron schedule, run crontab -e."
 
 .PHONY: backup
 backup:	## run backup script.

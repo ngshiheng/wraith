@@ -1,7 +1,7 @@
 #!/usr/bin/expect
 
-set email "<your-ghost-blog-administrator-email@email.com>"
-set password "<your-ghost-blog-administrator-password>"
+set email "your-ghost-blog-administrator-email@email.com"
+set password "your-ghost-blog-administrator-password"
 
 spawn ghost backup
 
