@@ -29,13 +29,16 @@ check: ## check if all requirements are installed.
 
 ##@ Usage
 .PHONY: setup
-setup: check	## setup rclone, autoexpect, and cron.
+setup: check	## setup rclone, ghost backup, and cron.
 	@echo "Configuring rlcone..."
 	rclone config
-	@echo "Setting up ghost backup with autoexpect..."
-	cd /var/www/ghost && autoexpect -f ghostbackup.exp -c ghost backup && cd ~
-	@echo "Set up a cron job to run at https://crontab.guru/#0_4_*_*_1"
+	@echo "Setting up wraith..."
+	cp wraith.example.exp /var/www/ghost/wraith.exp
+	chmod +x /var/www/ghost/wraith.exp
+	@echo "Setting up a cron job to run at 04:00 on Monday"
 	(crontab -l 2>/dev/null; echo "0 4 * * 1 cd ~/wraith/ && USER=ghost-mgr bash backup.sh > /tmp/wraith.log") | crontab -
+	@echo "Last action required: update the `email` and `password` field in `wraith.exp` for `ghost backup` to work."
+	@echo "To update the Cron schedule, run `crontab -e`."
 
 .PHONY: backup
 backup:	## run backup script.

@@ -27,12 +27,11 @@ pre_backup_checks() {
 }
 
 # backup Ghost content folder
-# assumes that `ghost backup` is configured using `autoexpect -f ghostbackup.exp -c ghost backup`
 backup_ghost_content() {
     log "Running ghost backup..."
     cd $GHOST_DIR
 
-    expect ghostbackup.exp
+    expect wraith.exp
 }
 
 # check MySQL connection
