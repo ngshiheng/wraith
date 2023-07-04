@@ -8,7 +8,7 @@ spawn ghost backup
 expect "Ghost administrator email address"
 send "$email\r"
 
-expect "Ghost administrator password:"
+expect "Ghost administrator password"
 send "$password\r"
 
 interact

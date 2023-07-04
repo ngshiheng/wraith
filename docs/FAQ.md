@@ -6,6 +6,7 @@
   - [Does `wraith` work on Ghost version x.yy.zz?](#does-wraith-work-on-ghost-version-xyyzz)
   - [How to set up Rclone?](#how-to-set-up-rclone)
   - [How to set up a Cron job?](#how-to-set-up-a-cron-job)
+  - [What is the `expect` script for?](#what-is-the-expect-script-for)
   - [How to test and restore backup?](#how-to-test-and-restore-backup)
 
 ### What to backup?
@@ -71,6 +72,14 @@ _NOTE: If you're getting `Error 403:rate_limit_exceeded` error, [read this](http
 
 1. Add a `crontab -e` item
 2. For this example, we will back up the data every week: `0 0 * * 0 cd /$HOME/wraith/ && ./backup.sh`
+
+### What is the `expect` script for?
+
+In the [`expect` script](../wraith.example.exp), we set the email and password variables to your email address and password, respectively. Then we spawn the `ghost backup` command.
+
+The script uses expect to wait for specific patterns in the output. When it sees the pattern "Ghost administrator email address", it sends the email using send. Similarly, when it sees the pattern "Ghost administrator password", it sends the password. The \r is used to simulate pressing the Enter key.
+
+_NOTE: Make sure you have the expect package installed on your system before running the script._
 
 ### How to test and restore backup?
 
