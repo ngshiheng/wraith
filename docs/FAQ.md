@@ -32,11 +32,11 @@ Starting Ghost-CLI version: 1.21.0 they started supporting `ghost backup` comman
 
 ```sh
 # ghost version
-Ghost-CLI version: 1.23.1
-Ghost version: 5.33.6 (at /var/www/ghost)
+Ghost-CLI version: 1.24.1
+Ghost version: 5.52.1 (at /var/www/ghost)
 
 # mysql --version
-mysql  Ver 8.0.32-0ubuntu0.20.04.2 for Linux on x86_64 ((Ubuntu))
+mysql  Ver 8.0.33-0ubuntu0.20.04.2 for Linux on x86_64 ((Ubuntu))
 
 # cat /etc/os-release
 NAME="Ubuntu"
