@@ -31,7 +31,6 @@ Having that said, if you want to take on the challenge of self-hosting your own 
   - [Table of Contents](#table-of-contents)
   - [Flowchart](#flowchart)
   - [Requirements](#requirements)
-  - [Setup](#setup)
   - [Usage](#usage)
   - [FAQ](#faq)
   - [Contributing](#contributing)
@@ -56,21 +55,17 @@ A list of CLI required to be installed:
 -   [`mysql`](https://www.mysql.com/)
 -   [`rclone`](https://rclone.org/install/)
 
-## Setup
+## Usage
 
 > 💡 Tip: run `make help` to display help message.
 >
 > Check out the [Makefile](./Makefile)
 
-Run `make setup` to set up [`rclone`](docs/FAQ.md#how-to-set-up-rclone), `autoexpect`, and [`cron`](docs/FAQ.md#how-to-set-up-a-cron-job).
-
-## Usage
-
 1. Access your Virtual Private Server (VPS) where your Ghost site is hosted
 2. Utilize the `sudo -i -u ghost-mgr` command to switch to the `ghost-mgr` user, which is responsible for managing Ghost
 3. Clone the repository onto the VPS
-4. Configure `rclone` and `autoexpect` once (or execute the `make setup` command)
-5. Execute the `./backup.sh` command from within the cloned repository directory (or utilize `make backup`). This will run the backup script and initiate the backup process
+4. Run `make setup`
+5. Optional: Run `make backup` to run backup manually
 
 ## FAQ
 
