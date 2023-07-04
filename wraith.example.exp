@@ -11,4 +11,5 @@ send "$email\r"
 expect "Ghost administrator password"
 send "$password\r"
 
-interact
+send "exit\r"
+expect eof
