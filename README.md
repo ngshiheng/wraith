@@ -64,7 +64,7 @@ A list of CLI required to be installed:
 1. Access your Virtual Private Server (VPS) where your Ghost site is hosted
 2. Utilize the `sudo -i -u ghost-mgr` command to switch to the `ghost-mgr` user, which is responsible for managing Ghost
 3. Clone the repository onto the VPS
-4. Run `make setup`
+4. Run `make setup` and update the `email` and `password` field in `wraith.exp`
 5. Optional: Run `make backup` to run backup manually
 
 ## FAQ
