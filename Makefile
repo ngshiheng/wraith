@@ -34,7 +34,6 @@ setup: check	## setup rclone, ghost backup, and cron.
 	rclone config
 	@echo "Setting up wraith..."
 	cp wraith.example.exp /var/www/ghost/wraith.exp
-	chmod +x /var/www/ghost/wraith.exp
 	@echo "Setting up a cron job to run at 04:00 on Monday"
 	(crontab -l 2>/dev/null; echo "0 4 * * 1 cd ~/wraith/ && USER=ghost-mgr bash backup.sh > /tmp/wraith.log") | crontab -
 	@echo "Last action required: update the email and password field in wraith.exp for ghost backup to work."
