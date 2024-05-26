@@ -40,7 +40,7 @@ Having that said, if you want to take on the challenge of self-hosting your own 
 
 ```mermaid
 graph LR
-  1(["start"]) --> 2["run checks"] --> 3["clean up"] --> 4["run `ghost backup`"] --> 5["run `mysqldump`"] --> 6["`rclone` backups to cloud storage"] --> 7["clean up"] --> 8(["end"])
+  1(["start"]) --> 2["run checks"] --> 3["clean up"] --> 4["run `ghost backup`"] --> 5["run `mysqldump`"] --> 6["run `rclone` to sync backup to cloud storage"] --> 7["clean up"] --> 8(["end"])
 ```
 
 ## Requirements
